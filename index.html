@@ -5,30 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Good Notes</title>
-    <link rel="stylesheet" href="css/main.css/">
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
     <div class="wrapper">
-        <header></header>
-        <nav></nav>
+        <header>
+            <div>
+                <span>GOODNOTES</span>
+                <span>inspiration</span>
+            </div>
+        </header>
+        <nav>
+            <div class="buttonGroup">
+                <button class="navItem"><span class="material-icons">apps</span></button>
+                <button class="navItem"><span class="material-icons">add_circle_outline</span></button>
+                <button class="navItem"><span class="material-icons">edit</span></button>
+                <button class="navItem"><span class="material-icons">create</span></button>
+                <button class="navItem"><span class="material-icons">format_paint</span></button>
+            </div>
+        </nav>
+        <section class="notesTitle">
+            <h1>Goodnotes post-it notes</h1>
+        </section>
         <section class="notesArea">
-            <div class="note"></div>
-            <div class="note"></div>
-            <div class="note"></div>
-            <div class="note"></div>
-            <div class="note"></div>
-            <div class="note"></div>
-            <div class="note"></div>
-            <div class="note"></div>
-            <div class="note"></div>
-            <div class="note"></div>
+            <div class="note">
+                <div>
+                    <h4>Title#0</h4>
+                    <div>
+                        <button class="editNote">Edit</button>
+                        <button class="deleteNote">Delete</button>
+                    </div>
+                </div>
+
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore nihil soluta explicabo reprehenderit
+                    in quo hic, fugit temporibus aliquid mollitia?</p>
+
+            </div>
         </section>
     </div>
 
 
 
 
+    <script src="javascript/main.js"></script>
 </body>
 
 </html>

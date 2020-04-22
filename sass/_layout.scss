@@ -1,0 +1,73 @@
+.wrapper {
+  background-color: red;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 13vh 8vh 8vh minmax(71vh, auto);
+  grid-template-areas:
+    "header"
+    "navigation"
+    "notesTitle"
+    "notesArea";
+}
+
+header {
+  @include flex(column, flex-start, center);
+  span {
+    text-align: center;
+    display: block;
+    line-height: normal;
+  }
+  span:nth-child(1) {
+    font-size: 3.5rem;
+    color: blue;
+  }
+  span:nth-child(2) {
+    font-size: 1.8rem;
+    color: red;
+  }
+  grid-area: header;
+  background-color: greenyellow;
+}
+nav {
+  grid-area: navigation;
+  background-color: blue;
+  width: 80%;
+  margin: 0 auto;
+  .buttonGroup {
+    height: 100%;
+    @include flex(row, space-evenly, center);
+    button {
+      border: 0;
+      padding: 0;
+      background-color: inherit;
+      // height: 50px;
+      // width: 50px;
+    }
+  }
+}
+.notesTitle {
+  @include flex(row, center, center);
+  grid-area: notesTitle;
+  background-color: sandybrown;
+}
+.notesArea {
+  padding: 1rem;
+  grid-area: notesArea;
+  @include flex(row, space-between, flex-start);
+  flex-wrap: wrap;
+
+  background-color: salmon;
+}
+.note {
+  overflow: hidden;
+  margin-bottom: 1rem;
+  padding: unset;
+  border: black 1px solid;
+  background-color: green;
+  width: 100px;
+  height: 100px;
+  & > div {
+    background-color: yellow;
+    @include flex(row, space-between, flex-start);
+  }
+}

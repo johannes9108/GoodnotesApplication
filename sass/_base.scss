@@ -2,13 +2,26 @@ $color1: white;
 $color2: gainsboro;
 $color3: gray;
 $color4: salmon;
-
+$font1: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+$font2: "Times New Roman", Times, serif;
+@mixin flex($direction, $justify_content, $align-items) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify_content;
+  align-items: $align-items;
+}
+%test_pseudoclass {
+  color: red;
+}
 body {
   padding: 0;
   margin: 0;
 
   background-color: $color3;
   * {
+    font-family: $font1;
+    line-height: 1.6;
+    box-sizing: border-box;
     padding: inherit;
     margin: inherit;
   }
