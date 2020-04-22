@@ -1,0 +1,15 @@
+$color1: white;
+$color2: gainsboro;
+$color3: gray;
+$color4: salmon;
+
+body {
+  padding: 0;
+  margin: 0;
+
+  background-color: $color3;
+  * {
+    padding: inherit;
+    margin: inherit;
+  }
+}
