@@ -40,8 +40,6 @@ nav {
       border: 0;
       padding: 0;
       background-color: inherit;
-      // height: 50px;
-      // width: 50px;
     }
   }
 }
@@ -58,8 +56,31 @@ nav {
 
   background-color: salmon;
 }
+.newArticleForm {
+  @include flex(column, flex-start, flex-start);
+  background-color: red;
+  h2 {
+    align-self: stretch;
+    border-bottom: solid 1px black;
+  }
+  & * {
+    margin-bottom: 1rem;
+    width: 80vw;
+    padding: 0;
+  }
+  textarea {
+    height: 40vh;
+  }
+  div {
+    @include flex(row, space-around, flex-start);
+  }
+}
 .note {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
   overflow: hidden;
+  margin-right: 0.5rem;
   margin-bottom: 1rem;
   padding: unset;
   border: black 1px solid;
@@ -67,7 +88,23 @@ nav {
   width: 100px;
   height: 100px;
   & > div {
+    margin: 0;
+    button {
+      border: 0;
+      padding: 0;
+      background-color: inherit;
+      font-size: 0.8rem;
+    }
     background-color: yellow;
-    @include flex(row, space-between, flex-start);
   }
+
+  p {
+  }
+}
+.noteExpanded {
+  height: 100%;
+  width: 100%;
+}
+.hide {
+  display: none;
 }

@@ -47,8 +47,8 @@ function createHTMLNote(postData) {
             <div>
               <h4 class="title">${postData.title}#${postData.counter}</h4>
               <div>
-              <button class="editNote">Edit</button>
-              <button class="deleteNote">Delete</button>
+              <button class="editNote hide"><i class="material-icons">edit</i></button>
+              <button class="deleteNote hide"><i class="material-icons">delete</i></button>
               </div>
             </div>
             <p class="content">${postData.content}</p>
@@ -61,6 +61,21 @@ function renderPosts(database, container) {
 }
 
 function attachListenersToPosts() {
+  let notes = notesArea.querySelectorAll(".note");
+
+  for (let note of notes) {
+    note.addEventListener("click", function () {
+      note.classList.toggle("noteExpanded");
+      for (let note of notes) {
+        note.classList.toggle("hide");
+      }
+      note.classList.toggle("hide");
+      for (let button of note.querySelectorAll("button")) {
+        button.classList.toggle("hide");
+      }
+    });
+  }
+
   let editButtons = notesArea.querySelectorAll(".editNote");
   let deleteButtons = notesArea.querySelectorAll(".deleteNote");
   for (let editButton of editButtons) {

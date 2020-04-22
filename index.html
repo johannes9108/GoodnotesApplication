@@ -30,12 +30,21 @@
             <h1>Goodnotes post-it notes</h1>
         </section>
         <section class="notesArea">
+            <article class="newArticleForm hide">
+                <h2>New Note</h2>
+                <input type="text" placeholder="Title" />
+                <textarea placeholder="Content"></textarea>
+                <div>
+                    <button>Create</button>
+                    <button>Clear</button>
+                </div>
+            </article>
             <div class="note">
                 <div>
                     <h4>Title#0</h4>
                     <div>
-                        <button class="editNote">Edit</button>
-                        <button class="deleteNote">Delete</button>
+                        <button class="editNote hide"><i class="material-icons">edit</i></button>
+                        <button class="deleteNote hide"><i class="material-icons">delete</i></button>
                     </div>
                 </div>
 
@@ -44,6 +53,7 @@
 
             </div>
         </section>
+
     </div>
 
 

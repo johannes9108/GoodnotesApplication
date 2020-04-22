@@ -68,8 +68,33 @@ nav {
   flex-wrap: wrap;
   background-color: salmon; }
 
+.newArticleForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: red; }
+  .newArticleForm h2 {
+    align-self: stretch;
+    border-bottom: solid 1px black; }
+  .newArticleForm * {
+    margin-bottom: 1rem;
+    width: 80vw;
+    padding: 0; }
+  .newArticleForm textarea {
+    height: 40vh; }
+  .newArticleForm div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start; }
+
 .note {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
   overflow: hidden;
+  margin-right: 0.5rem;
   margin-bottom: 1rem;
   padding: unset;
   border: black 1px solid;
@@ -77,8 +102,17 @@ nav {
   width: 100px;
   height: 100px; }
   .note > div {
-    background-color: yellow;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start; }
+    margin: 0;
+    background-color: yellow; }
+    .note > div button {
+      border: 0;
+      padding: 0;
+      background-color: inherit;
+      font-size: 0.8rem; }
+
+.noteExpanded {
+  height: 100%;
+  width: 100%; }
+
+.hide {
+  display: none; }
