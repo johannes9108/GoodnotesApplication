@@ -8,26 +8,32 @@ let sections = wrapper.getElementsByTagName("section");
 let notesTitle = sections[0];
 let notesArea = sections[1];
 let newNoteForm = notesArea.children[0];
-let createButton = newNoteForm.children[3].children[0];
-createButton.addEventListener("click", function () {
-  addNoteToDB(
-    new Data(
-      ++postCounter,
-      newNoteForm.querySelector("input").value,
-      newNoteForm.querySelector("textarea").value
-    )
-  );
-  resetInputFileds();
-  newNoteForm.classList.toggle("hide"); // Hide Input
-  console.log("Innefrån createListener " + newNoteForm.classList);
-  hideNotes(); // Reveal notes
-  renderPosts(database, notesArea);
-  // attachListenersToPosts();
-});
-let clearButton = newNoteForm.children[3].children[1];
-clearButton.addEventListener("click", function () {
-  resetInputFileds();
-});
+let activeBackground-color =  white;
+
+initNewNoteForm();
+function initNewNoteForm() {
+  newNoteForm = notesArea.children[0];
+  let createButton = newNoteForm.children[3].children[0];
+  createButton.addEventListener("click", function () {
+    addNoteToDB(
+      new Data(
+        ++postCounter,
+        newNoteForm.querySelector("input").value,
+        newNoteForm.querySelector("textarea").value
+      )
+    );
+    resetInputFileds();
+    newNoteForm.classList.toggle("hide"); // Hide Input
+    console.log("Innefrån createListener " + newNoteForm.classList);
+    hideNotes(); // Reveal notes
+    renderPosts(database, notesArea);
+    attachListenersToPosts();
+  });
+  let clearButton = newNoteForm.children[3].children[1];
+  clearButton.addEventListener("click", function () {
+    resetInputFileds();
+  });
+}
 
 let navButtons = nav.firstElementChild.children;
 navButtons[0].addEventListener("click", function () {
@@ -97,6 +103,7 @@ function createHTMLNote(postData) {
 function renderPosts(database, container) {
   console.log(database.get(postCounter));
   container.innerHTML += createHTMLNote(database.get(postCounter));
+  initNewNoteForm();
 }
 
 function attachListenersToPosts() {
