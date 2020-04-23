@@ -68,22 +68,22 @@ nav {
   flex-wrap: wrap;
   background-color: salmon; }
 
-.newArticleForm {
+.newNoteForm {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   background-color: red; }
-  .newArticleForm h2 {
+  .newNoteForm h2 {
     align-self: stretch;
     border-bottom: solid 1px black; }
-  .newArticleForm * {
+  .newNoteForm * {
     margin-bottom: 1rem;
     width: 80vw;
     padding: 0; }
-  .newArticleForm textarea {
+  .newNoteForm textarea {
     height: 40vh; }
-  .newArticleForm div {
+  .newNoteForm div {
     display: flex;
     flex-direction: row;
     justify-content: space-around;

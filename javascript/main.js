@@ -1,3 +1,5 @@
+let postCounter = 0;
+let database = new Map();
 let body = document.body;
 let wrapper = body.getElementsByClassName("wrapper")[0];
 let header = wrapper.getElementsByTagName("header")[0];
@@ -5,28 +7,65 @@ let nav = wrapper.getElementsByTagName("nav")[0];
 let sections = wrapper.getElementsByTagName("section");
 let notesTitle = sections[0];
 let notesArea = sections[1];
+let newNoteForm = notesArea.children[0];
+let createButton = newNoteForm.children[3].children[0];
+createButton.addEventListener("click", function () {
+  addNoteToDB(
+    new Data(
+      ++postCounter,
+      newNoteForm.querySelector("input").value,
+      newNoteForm.querySelector("textarea").value
+    )
+  );
+  resetInputFileds();
+  newNoteForm.classList.toggle("hide"); // Hide Input
+  console.log("Innefrån createListener " + newNoteForm.classList);
+  hideNotes(); // Reveal notes
+  renderPosts(database, notesArea);
+  // attachListenersToPosts();
+});
+let clearButton = newNoteForm.children[3].children[1];
+clearButton.addEventListener("click", function () {
+  resetInputFileds();
+});
 
 let navButtons = nav.firstElementChild.children;
-let postCounter = 0;
-let database = new Map();
-
-function Data(counter) {
-  this.counter = counter;
-  this.title = "Title";
-  this.content =
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore nihil soluta explicabo reprehenderit in quo hic, fugit temporibus aliquid mollitia?";
-}
-navButtons[1].addEventListener("click", function () {
-  postCounter++;
-  let x = new Data(postCounter);
-  database.set(postCounter, x);
-  // console.log(database);
-  // for (post of database) {
-  //   console.log("Post: " + post.counter);
-  // }
-  renderPosts(database, notesArea);
-  attachListenersToPosts();
+navButtons[0].addEventListener("click", function () {
+  // Change the view of Notesarea
 });
+navButtons[1].addEventListener("click", function () {
+  // Open up NewArticleForm
+  hideNotes(); // Hide notes
+  newNoteForm.classList.toggle("hide"); // Reveal Input
+  console.log("Innefrån navButton[1]Listener " + newNoteForm.classList);
+});
+navButtons[2].addEventListener("click", function () {
+  // Change the view of select multiple notes???
+});
+navButtons[3].addEventListener("click", function () {
+  // Open up colorpicker and change text color
+});
+navButtons[4].addEventListener("click", function () {
+  // Open up colorpicker and change background color
+});
+
+function resetInputFileds() {
+  newNoteForm.querySelector("input").value = "";
+  newNoteForm.querySelector("textarea").value = "";
+}
+function addNoteToDB(note) {
+  database.set(postCounter, note);
+}
+function Data(counter, title, content) {
+  this.counter = counter;
+  this.title = title;
+  this.content = content;
+}
+function hideNotes() {
+  for (let note of notesArea.querySelectorAll(".note")) {
+    note.classList.toggle("hide");
+  }
+}
 
 function concatenateHTMLNotes(posts) {
   let res = "";
@@ -56,8 +95,8 @@ function createHTMLNote(postData) {
     `;
 }
 function renderPosts(database, container) {
-  container.innerHTML = concatenateHTMLNotes(database);
-  console.log(database);
+  console.log(database.get(postCounter));
+  container.innerHTML += createHTMLNote(database.get(postCounter));
 }
 
 function attachListenersToPosts() {
@@ -66,9 +105,7 @@ function attachListenersToPosts() {
   for (let note of notes) {
     note.addEventListener("click", function () {
       note.classList.toggle("noteExpanded");
-      for (let note of notes) {
-        note.classList.toggle("hide");
-      }
+      hideNotes();
       note.classList.toggle("hide");
       for (let button of note.querySelectorAll("button")) {
         button.classList.toggle("hide");

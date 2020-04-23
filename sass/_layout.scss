@@ -56,7 +56,7 @@ nav {
 
   background-color: salmon;
 }
-.newArticleForm {
+.newNoteForm {
   @include flex(column, flex-start, flex-start);
   background-color: red;
   h2 {
