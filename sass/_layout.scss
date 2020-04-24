@@ -1,5 +1,4 @@
 .wrapper {
-  background-color: red;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 13vh 8vh 8vh minmax(71vh, auto);
@@ -19,57 +18,86 @@ header {
   }
   span:nth-child(1) {
     font-size: 3.5rem;
-    color: blue;
   }
   span:nth-child(2) {
     font-size: 1.8rem;
-    color: red;
   }
   grid-area: header;
-  background-color: greenyellow;
 }
 nav {
   grid-area: navigation;
-  background-color: blue;
-  width: 80%;
-  margin: 0 auto;
+  background-color: gainsboro;
+  // margin: 0 auto;
+  padding: 0 1.5rem;
+  border-bottom: solid 10px gray;
   .buttonGroup {
     height: 100%;
     @include flex(row, space-evenly, center);
     button {
+      position: relative;
       border: 0;
       padding: 0;
+
       background-color: inherit;
+      img {
+        height: 2.5rem;
+      }
+      input {
+        position: absolute;
+        border: 0;
+        height: 100%;
+        width: 100%;
+        margin: 2px;
+        bottom: -5px;
+        left: 0;
+        height: 15px;
+        z-index: 1;
+      }
     }
   }
 }
 .notesTitle {
   @include flex(row, center, center);
   grid-area: notesTitle;
-  background-color: sandybrown;
+  // background-color: sandybrown;
 }
 .notesArea {
   padding: 1rem;
   grid-area: notesArea;
-  @include flex(row, space-between, flex-start);
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
 
-  background-color: salmon;
+  // @include flex(row, space-between, flex-start);
+  // flex-wrap: wrap;
+
+  // background-color: salmon;
 }
 .newNoteForm {
   @include flex(column, flex-start, flex-start);
-  background-color: red;
+  // background-color: red;
+  border: 1px solid dashed;
   h2 {
     align-self: stretch;
     border-bottom: solid 1px black;
   }
   & * {
+    color: inherit;
     margin-bottom: 1rem;
+    border: 0;
     width: 80vw;
     padding: 0;
   }
+  input {
+    outline: solid 1px black;
+  }
   textarea {
+    outline: solid 1px black;
     height: 40vh;
+    resize: none;
+  }
+  button {
+    border: 1px solid black;
   }
   div {
     @include flex(row, space-around, flex-start);
@@ -78,33 +106,66 @@ nav {
 .note {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: 25% auto;
   overflow: hidden;
   margin-right: 0.5rem;
   margin-bottom: 1rem;
   padding: unset;
   border: black 1px solid;
-  background-color: green;
-  width: 100px;
+  // max-width: 100px;
   height: 100px;
+  width: 100%;
   & > div {
     margin: 0;
+    border-bottom: 1px solid black;
+    // background-color: yellow;
+    // @include flex(row, space-between, flex-start);
+    display: grid;
+    grid-template-columns: 3fr auto;
+    div:nth-child(1) {
+      overflow: hidden;
+    }
     button {
       border: 0;
       padding: 0;
       background-color: inherit;
       font-size: 0.8rem;
     }
-    background-color: yellow;
   }
-
+  textarea,
   p {
+    overflow: hidden;
   }
 }
 .noteExpanded {
+  grid-area: 1 / 1 / auto / 4;
+  grid-template-rows: 5% auto;
   height: 100%;
-  width: 100%;
+  // min-width: 100%;
+
+  input,
+  textarea {
+    border: 0;
+    width: 100%;
+    height: 100%;
+  }
+  input {
+    height: 80%;
+  }
 }
+
 .hide {
   display: none;
+}
+.list {
+  grid-template-columns: 1fr;
+}
+.noteFocus {
+  grid-template-columns: 1fr;
+  grid-template-areas: 1fr;
+}
+.prototype {
+  display: none;
+}
+.edit-mode {
 }
