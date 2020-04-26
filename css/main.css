@@ -1,7 +1,6 @@
 body {
   padding: 0;
-  margin: 0;
-  background-color: gray; }
+  margin: 0; }
   body * {
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
     line-height: 1.6;
@@ -10,7 +9,6 @@ body {
     margin: inherit; }
 
 .wrapper {
-  background-color: red;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 13vh 8vh 8vh minmax(71vh, auto);
@@ -21,24 +19,21 @@ header {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  grid-area: header;
-  background-color: greenyellow; }
+  grid-area: header; }
   header span {
     text-align: center;
     display: block;
     line-height: normal; }
   header span:nth-child(1) {
-    font-size: 3.5rem;
-    color: blue; }
+    font-size: 3.5rem; }
   header span:nth-child(2) {
-    font-size: 1.8rem;
-    color: red; }
+    font-size: 1.8rem; }
 
 nav {
   grid-area: navigation;
-  background-color: blue;
-  width: 80%;
-  margin: 0 auto; }
+  background-color: gainsboro;
+  padding: 0 1.5rem;
+  border-bottom: solid 10px gray; }
   nav .buttonGroup {
     height: 100%;
     display: flex;
@@ -46,44 +41,61 @@ nav {
     justify-content: space-evenly;
     align-items: center; }
     nav .buttonGroup button {
+      position: relative;
       border: 0;
       padding: 0;
       background-color: inherit; }
+      nav .buttonGroup button img {
+        height: 2.5rem; }
+      nav .buttonGroup button input {
+        position: absolute;
+        border: 0;
+        height: 100%;
+        width: 100%;
+        margin: 2px;
+        bottom: -5px;
+        left: 0;
+        height: 15px;
+        z-index: 1; }
 
 .notesTitle {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  grid-area: notesTitle;
-  background-color: sandybrown; }
+  grid-area: notesTitle; }
 
 .notesArea {
   padding: 1rem;
   grid-area: notesArea;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  background-color: salmon; }
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem; }
 
-.newArticleForm {
+.newNoteForm {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  background-color: red; }
-  .newArticleForm h2 {
+  border: 1px solid dashed; }
+  .newNoteForm h2 {
     align-self: stretch;
     border-bottom: solid 1px black; }
-  .newArticleForm * {
+  .newNoteForm * {
+    color: inherit;
     margin-bottom: 1rem;
+    border: 0;
     width: 80vw;
     padding: 0; }
-  .newArticleForm textarea {
-    height: 40vh; }
-  .newArticleForm div {
+  .newNoteForm input {
+    outline: solid 1px black; }
+  .newNoteForm textarea {
+    outline: solid 1px black;
+    height: 40vh;
+    resize: none; }
+  .newNoteForm button {
+    border: 1px solid black; }
+  .newNoteForm div {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -92,27 +104,51 @@ nav {
 .note {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: 25% auto;
   overflow: hidden;
   margin-right: 0.5rem;
   margin-bottom: 1rem;
   padding: unset;
   border: black 1px solid;
-  background-color: green;
-  width: 100px;
-  height: 100px; }
+  height: 100px;
+  width: 100%; }
   .note > div {
     margin: 0;
-    background-color: yellow; }
+    border-bottom: 1px solid black;
+    display: grid;
+    grid-template-columns: 3fr auto; }
+    .note > div div:nth-child(1) {
+      overflow: hidden; }
     .note > div button {
       border: 0;
       padding: 0;
       background-color: inherit;
       font-size: 0.8rem; }
+  .note textarea,
+  .note p {
+    overflow: hidden; }
 
 .noteExpanded {
-  height: 100%;
-  width: 100%; }
+  grid-area: 1 / 1 / auto / 4;
+  grid-template-rows: 5% auto;
+  height: 100%; }
+  .noteExpanded input,
+  .noteExpanded textarea {
+    border: 0;
+    width: 100%;
+    height: 100%; }
+  .noteExpanded input {
+    height: 80%; }
 
 .hide {
+  display: none; }
+
+.list {
+  grid-template-columns: 1fr; }
+
+.noteFocus {
+  grid-template-columns: 1fr;
+  grid-template-areas: 1fr; }
+
+.prototype {
   display: none; }

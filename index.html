@@ -19,18 +19,30 @@
         </header>
         <nav>
             <div class="buttonGroup">
-                <button class="navItem"><span class="material-icons">apps</span></button>
+                <!-- <input type="color" id="head" name="head" value="#e66465">
+                <label for="head">Head</label> -->
+                <button class="navItem"><img src="img/saker_rutnet.png" alt=""></button>
+                <button class="navItem"><img src="img/saker_create.png" alt=""></button>
+                <button class="navItem"><img src="img/saker_penInPapper.png" alt=""></button>
+                <button class="navItem">
+                    <img src="img/saker_pen.png" alt="">
+                    <input type="color" id="head" name="head" value="#000000"> </input></button>
+                <button class="navItem">
+                    <img src="img/saker_marker.png" alt="">
+                    <input type="color" id="head" name="head" value="#FFFFFF">
+                </button>
+                <!-- <button class="navItem"><span class="material-icons">apps</span></button>
                 <button class="navItem"><span class="material-icons">add_circle_outline</span></button>
                 <button class="navItem"><span class="material-icons">edit</span></button>
                 <button class="navItem"><span class="material-icons">create</span></button>
-                <button class="navItem"><span class="material-icons">format_paint</span></button>
+                <button class="navItem"><span class="material-icons">format_paint</span></button> -->
             </div>
         </nav>
         <section class="notesTitle">
             <h1>Goodnotes post-it notes</h1>
         </section>
         <section class="notesArea">
-            <article class="newArticleForm hide">
+            <article class="newNoteForm hide">
                 <h2>New Note</h2>
                 <input type="text" placeholder="Title" />
                 <textarea placeholder="Content"></textarea>
@@ -39,18 +51,22 @@
                     <button>Clear</button>
                 </div>
             </article>
-            <div class="note">
+
+            <div class="note prototype">
                 <div>
-                    <h4>Title#0</h4>
                     <div>
+                        <h4 class="title"></h4>
+                        <input class="hide" type="text" />
+                    </div>
+                    <div>
+                        <button class="expandNote"><i class="material-icons">fullscreen</i></button>
                         <button class="editNote hide"><i class="material-icons">edit</i></button>
                         <button class="deleteNote hide"><i class="material-icons">delete</i></button>
                     </div>
                 </div>
-
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore nihil soluta explicabo reprehenderit
-                    in quo hic, fugit temporibus aliquid mollitia?</p>
-
+                <p class="content"></p>
+                <textarea class="hide"></textarea>
+                <span style="display: none;"></span>
             </div>
         </section>
 
