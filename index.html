@@ -46,9 +46,35 @@
                 <h2>New Note</h2>
                 <input type="text" placeholder="Title" />
                 <textarea placeholder="Content"></textarea>
+                <label class="checkListLabel">Checklists</label>
+                <div class="checkListContainer empty">
+                    <div class="checkList prototype">
+                        <h5></h5>
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="checkListForm">
+                    <div>
+                        <!-- <label for="title">Title</label> -->
+                        <input id="title" type="text" placeholder="Title">
+                    </div>
+                    <div>
+                        <button class="addCheckItem">Add Item</button>
+                        <button class="saveCheckList">Save checklist</button>
+                        <button class="deleteCheckList">Delete checklist</button>
+                    </div>
+                    <div class="listItemContainer">
+                        <div class="listItem prototype">
+                            <input class="item" type="text">
+                            <button><i class="material-icons">delete</i></button>
+                        </div>
+                    </div>
+                </div>
                 <div>
-                    <button>Create</button>
-                    <button>Clear</button>
+                    <button class="createButton">Create</button>
+                    <button class="clearButton">Clear</button>
                 </div>
             </article>
 
@@ -64,8 +90,37 @@
                         <button class="deleteNote hide"><i class="material-icons">delete</i></button>
                     </div>
                 </div>
-                <p class="content"></p>
-                <textarea class="hide"></textarea>
+                <section>
+                    <p class="content"></p>
+                    <aside class="checklists hide"></aside>
+                    <textarea class="hide"></textarea>
+                    <!-- <div class="editCheckListForm hide">
+                        <label class="checkListLabel">Checklists</label>
+                        <div class="checkListContainer empty">
+                            <div class="checkList prototype">
+                                <h5></h5>
+                                <ul>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="checkListForm">
+                            <div>
+                                <!-- <label for="title">Title</label> -->
+                    <!-- <input id="title" type="text" placeholder="Title">
+                            </div>
+                            <button class="addCheckItem">Add Item</button>
+                            <button class="saveCheckList">Save checklist</button>
+                            <button class="deleteCheckList">Delete checklist</button>
+                            <div class="listItemContainer">
+                                <div class="listItem prototype">
+                                    <input class="item" type="text">
+                                    <button><i class="material-icons">delete</i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  -->
+                </section>
                 <span style="display: none;"></span>
             </div>
         </section>

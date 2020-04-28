@@ -81,7 +81,7 @@ nav {
     align-self: stretch;
     border-bottom: solid 1px black;
   }
-  & * {
+  & > * {
     color: inherit;
     margin-bottom: 1rem;
     border: 0;
@@ -93,14 +93,79 @@ nav {
   }
   textarea {
     outline: solid 1px black;
-    height: 40vh;
+    height: 15vh;
     resize: none;
   }
   button {
     border: 1px solid black;
   }
-  div {
-    @include flex(row, space-around, flex-start);
+  div:nth-child(2) {
+    // @include flex(row, space-around, flex-start);
+    // flex-wrap: wrap;
+  }
+  .checkListForm {
+    width: 100%;
+    // background-color: red;
+    padding: 0 1rem;
+    border-bottom: 1px solid black;
+    max-height: 25vh;
+    overflow: auto;
+
+    & > div:nth-child(1) {
+      display: flex;
+      width: 100%;
+      input {
+        width: 100%;
+      }
+    }
+    & > div:nth-child(2) {
+      display: flex;
+      justify-content: space-between;
+    }
+    & > * {
+      // border-bottom: 5px solid limegreen;
+      margin: 0.5rem 0;
+      padding: 0;
+    }
+
+    .listItem {
+      @include flex(row, flex-start, flex-end);
+      input {
+        flex-grow: 1;
+      }
+      button {
+        padding: 0;
+        margin: 0;
+        background: 0;
+        border: 0;
+        vertical-align: text-top;
+      }
+    }
+    .listItemContainer {
+    }
+  }
+  .checkListContainer {
+    @include flex(row, space-evenly, flex-start);
+    flex-wrap: wrap;
+    .checkList {
+      height: 100px;
+      width: 100px;
+      padding: 0 0.1rem;
+      overflow: auto;
+      border-bottom: 1px solid black;
+      ul {
+        overflow: inherit;
+        list-style-position: inside;
+        margin: 0;
+        li {
+          word-wrap: break-word;
+        }
+      }
+    }
+  }
+  .editable {
+    border: 1px solid black;
+    transform: scale(1.2);
   }
 }
 .note {
@@ -131,6 +196,29 @@ nav {
       background-color: inherit;
       font-size: 0.8rem;
     }
+  }
+  section {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    background-color: yellow;
+    height: inherit;
+    width: inherit;
+  }
+  p {
+    height: inherit;
+    width: inherit;
+    background-color: limegreen;
+  }
+  textarea {
+    height: inherit;
+    width: inherit;
+    background-color: red;
+  }
+  aside {
+    list-style-position: inside;
+    background-color: blue;
+    height: inherit;
+    width: inherit;
   }
   textarea,
   p {
@@ -167,5 +255,18 @@ nav {
 .prototype {
   display: none;
 }
-.edit-mode {
+.checkListView {
+}
+.edit-view {
+  section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      "content content"
+      "editCL checklist";
+    background-color: yellow;
+    height: inherit;
+    width: inherit;
+  }
 }

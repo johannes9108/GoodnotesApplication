@@ -81,7 +81,7 @@ nav {
   .newNoteForm h2 {
     align-self: stretch;
     border-bottom: solid 1px black; }
-  .newNoteForm * {
+  .newNoteForm > * {
     color: inherit;
     margin-bottom: 1rem;
     border: 0;
@@ -91,15 +91,61 @@ nav {
     outline: solid 1px black; }
   .newNoteForm textarea {
     outline: solid 1px black;
-    height: 40vh;
+    height: 15vh;
     resize: none; }
   .newNoteForm button {
     border: 1px solid black; }
-  .newNoteForm div {
+  .newNoteForm .checkListForm {
+    width: 100%;
+    padding: 0 1rem;
+    border-bottom: 1px solid black;
+    max-height: 25vh;
+    overflow: auto; }
+    .newNoteForm .checkListForm > div:nth-child(1) {
+      display: flex;
+      width: 100%; }
+      .newNoteForm .checkListForm > div:nth-child(1) input {
+        width: 100%; }
+    .newNoteForm .checkListForm > div:nth-child(2) {
+      display: flex;
+      justify-content: space-between; }
+    .newNoteForm .checkListForm > * {
+      margin: 0.5rem 0;
+      padding: 0; }
+    .newNoteForm .checkListForm .listItem {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-end; }
+      .newNoteForm .checkListForm .listItem input {
+        flex-grow: 1; }
+      .newNoteForm .checkListForm .listItem button {
+        padding: 0;
+        margin: 0;
+        background: 0;
+        border: 0;
+        vertical-align: text-top; }
+  .newNoteForm .checkListContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    align-items: flex-start; }
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-wrap: wrap; }
+    .newNoteForm .checkListContainer .checkList {
+      height: 100px;
+      width: 100px;
+      padding: 0 0.1rem;
+      overflow: auto;
+      border-bottom: 1px solid black; }
+      .newNoteForm .checkListContainer .checkList ul {
+        overflow: inherit;
+        list-style-position: inside;
+        margin: 0; }
+        .newNoteForm .checkListContainer .checkList ul li {
+          word-wrap: break-word; }
+  .newNoteForm .editable {
+    border: 1px solid black;
+    transform: scale(1.2); }
 
 .note {
   display: grid;
@@ -124,6 +170,25 @@ nav {
       padding: 0;
       background-color: inherit;
       font-size: 0.8rem; }
+  .note section {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    background-color: yellow;
+    height: inherit;
+    width: inherit; }
+  .note p {
+    height: inherit;
+    width: inherit;
+    background-color: limegreen; }
+  .note textarea {
+    height: inherit;
+    width: inherit;
+    background-color: red; }
+  .note aside {
+    list-style-position: inside;
+    background-color: blue;
+    height: inherit;
+    width: inherit; }
   .note textarea,
   .note p {
     overflow: hidden; }
@@ -152,3 +217,12 @@ nav {
 
 .prototype {
   display: none; }
+
+.edit-view section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: "content content" "editCL checklist";
+  background-color: yellow;
+  height: inherit;
+  width: inherit; }

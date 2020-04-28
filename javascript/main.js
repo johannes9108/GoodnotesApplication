@@ -9,31 +9,161 @@ let notesTitle = sections[0];
 let notesArea = sections[1];
 let newNoteForm = notesArea.querySelector(".newNoteForm");
 let notePrototype = notesArea.querySelector(".note.prototype");
+let checkListForm = newNoteForm.querySelector(".checkListForm");
+let title = checkListForm.querySelector("#title");
+let listItemPrototype = checkListForm.querySelector(".listItem.prototype");
+let checkListPrototype = newNoteForm.querySelector(".checkList.prototype");
+
+console.log("Proto: " + checkListPrototype);
 let createButton;
+
 initNewNoteForm();
 function initNewNoteForm() {
   newNoteForm = notesArea.querySelector(".newNoteForm");
-  createButton = newNoteForm.querySelector("button");
+  createButton = newNoteForm.querySelector("button.createButton");
   createButton.addEventListener("click", function () {
     addNoteToDB(
       new Data(
         ++noteCounter,
         newNoteForm.querySelector("input").value,
-        newNoteForm.querySelector("textarea").value
+        newNoteForm.querySelector("textarea").value,
+        convertDOMCLtoDBCL(newNoteForm.querySelectorAll(".concrete"))
       )
     );
+    for (entry of database) console.log(entry);
+
     resetInputFileds();
     newNoteForm.classList.toggle("hide"); // Hide Input
     // console.log("Innefrån createListener " + newNoteForm.classList);
     hideNotes(); // Reveal notes
     renderNewPost(database, noteCounter);
   });
-  let clearButton = newNoteForm.children[3].children[1];
+  let clearButton = newNoteForm.querySelector("button.clearButton");
   clearButton.addEventListener("click", function () {
     resetInputFileds();
   });
+  let addCheckButton = newNoteForm.querySelector("button.addCheckItem");
+  addCheckButton.addEventListener("click", function () {
+    let clone = listItemPrototype.cloneNode(true);
+    clone.classList.remove("prototype");
+    clone.querySelector("button").addEventListener("click", function () {
+      console.log("This parent: " + this.parentElement.remove());
+    });
+    checkListForm.querySelector("div.listItemContainer").append(clone);
+  });
+  let saveCheckListButton = newNoteForm.querySelector("button.saveCheckList");
+  saveCheckListButton.addEventListener("click", function () {
+    let edit = newNoteForm.querySelector(".editable");
+    let items = checkListForm.querySelectorAll(".item");
+
+    if (edit != null) {
+      edit.replaceWith(createNewDOMCheckList(items));
+      edit.classList.toggle("editable");
+      resetCheckListForm();
+    } else {
+      if (items.length > 0) {
+        console.log("Title : " + title.value);
+        let container = newNoteForm.querySelector(".checkListContainer");
+        container.append(createNewDOMCheckList(items));
+      }
+    }
+  });
+  let deleteCheckListButton = newNoteForm.querySelector(
+    "button.deleteCheckList"
+  );
+  deleteCheckListButton = deleteCheckListButton.addEventListener(
+    "click",
+    function () {
+      deleteSelectedCheckList();
+    }
+  );
+}
+function convertDOMCLtoDBCL(checklists) {
+  if (checklists.length > 0) {
+    let checkListArray = [];
+    for (let checklist of checklists) {
+      let title = checklist.querySelector("h5").innerText;
+      let items = [];
+      for (let item of checklist.querySelectorAll("li")) {
+        items.push(item.innerText);
+      }
+      checkListArray.push(new CheckList(title, items));
+      console.log("CLA: " + checkListArray.length);
+    }
+    return checkListArray;
+  } else {
+    console.log("Empty");
+    return [];
+  }
+}
+function createNewDOMCheckList(items) {
+  let clone = checkListPrototype.cloneNode(true);
+
+  clone.addEventListener("click", function () {
+    if (!clone.classList.contains("editable")) {
+      clone.classList.toggle("editable");
+      title.value = this.querySelector("h5").innerText;
+      let editInputs = this.querySelectorAll("li");
+      let editContainer = checkListForm.querySelector(".listItemContainer");
+      for (editInput of editInputs) {
+        let newItem = listItemPrototype.cloneNode(true);
+        newItem.classList.remove("prototype");
+        newItem.querySelector("button").addEventListener("click", function () {
+          console.log("This parent: " + this.parentElement.remove());
+        });
+        newItem.querySelector(".item").value = editInput.innerText;
+        editContainer.append(newItem);
+      }
+    }
+  });
+
+  clone.classList.remove("prototype");
+  clone.classList.add("concrete");
+  clone.querySelector("h5").innerText = title.value;
+  title.value = "";
+  let ul = clone.querySelector("ul");
+  for (let item of items) {
+    console.log("Item: " + item.value);
+    let li = document.createElement("li");
+    li.innerText = item.value;
+    item.parentElement.remove();
+    ul.append(li);
+  }
+  return clone;
+}
+function createNewDOMCheckListFromDB(checkList) {
+  let h5 = document.createElement("h5");
+  // h5.contentEditable = "true";
+  let ul = document.createElement("ul");
+  let li = document.createElement("li");
+  // li.contentEditable = "true";
+  h5.innerText = checkList.title;
+  for (let item of checkList.items) {
+    li.innerText = item;
+    ul.append(li);
+  }
+  let div = document.createElement("div");
+  div.append(h5);
+  div.append(ul);
+  return div;
+}
+function deleteSelectedCheckList() {
+  let edit = newNoteForm.querySelector(".editable");
+  console.log("Delete clicked: " + edit);
+  if (edit != null) {
+    edit.remove();
+    resetCheckListForm();
+  }
 }
 
+function resetCheckListForm() {
+  let title = checkListForm.querySelector("#title");
+  let items = checkListForm.querySelectorAll(".item");
+  title.value = "";
+  for (item of items) {
+    item.parentElement.remove();
+  }
+}
 let navButtons = nav.firstElementChild.children;
 navButtons[0].addEventListener("click", function () {
   // Change the view of Notesarea
@@ -74,18 +204,27 @@ console.log(activeColor + ":" + activeBackgroundColor);
 function resetInputFileds() {
   newNoteForm.querySelector("input").value = "";
   newNoteForm.querySelector("textarea").value = "";
+  let clChildren = checkListForm.querySelectorAll(".listItem");
+  for (clChild of clChildren) {
+    clChild.remove();
+  }
 }
 function addNoteToDB(note) {
   database.set(noteCounter, note);
   console.log("DB status after Insert: ");
   database.forEach((note) => console.log(note));
 }
-function Data(id, title, content) {
+function Data(id, title, content, checkLists) {
   this.id = id;
   this.title = title;
   this.content = content;
   this.bg = getBackgroundColor();
   this.color = getTextColor();
+  this.checkLists = checkLists;
+}
+function CheckList(title, items) {
+  this.title = title;
+  this.items = items;
 }
 function hideNotes() {
   for (let note of notesArea.querySelectorAll(".note")) {
@@ -94,23 +233,6 @@ function hideNotes() {
 }
 
 function createHTMLNote(postData) {
-  // console.log("PD: " + postData.counter);
-
-  // return `
-  //       <div class="note" >
-  //           <div>
-  //             <h4 class="title">${postData.title}#${postData.counter}</h4>
-  //             <input class="hide" type="text" placeholder="${postData.title}" />
-  //             <div>
-  //             <button class="editNote hide"><i class="material-icons">edit</i></button>
-  //             <button class="deleteNote hide"><i class="material-icons">delete</i></button>
-  //             </div>
-  //           </div>
-  //           <p class="content">${postData.content}</p>
-  //           <textarea class="hide"placeholder="${postData.content}"></textarea>
-  //       </div>
-  //   `;
-
   let clone = notePrototype.cloneNode(true);
   clone.querySelector(".title").innerText = postData.id + "#" + postData.title;
   clone.querySelector(".content").innerText = postData.content;
@@ -120,6 +242,10 @@ function createHTMLNote(postData) {
   clone.classList.remove("prototype");
   clone.style.color = postData.color;
   clone.style.backgroundColor = postData.bg;
+  let checkLists = clone.querySelector(".checklists");
+  for (checklist of postData.checkLists) {
+    checkLists.append(createNewDOMCheckListFromDB(checklist));
+  }
 
   return clone;
 }
@@ -137,6 +263,8 @@ const expandFunc = function (note) {
   for (let button of note.querySelectorAll(".editNote, .deleteNote")) {
     button.classList.toggle("hide");
   }
+  let checkList = note.querySelector(".checklists");
+  checkList.classList.toggle("hide");
 };
 function attachListenersToNote(newNote) {
   let noteIndex = noteCounter;
@@ -200,9 +328,13 @@ function editModeToggle(note) {
   let inputTitle = note.querySelector("input");
   let content = note.querySelector(".content");
   let inputContent = note.querySelector("textarea");
+  // let checklistForm = note.querySelector(".editCheckListForm");
+  // let section = note.querySelector("section");
 
   title.classList.toggle("hide");
   inputTitle.classList.toggle("hide");
   content.classList.toggle("hide");
   inputContent.classList.toggle("hide");
+  checklistForm.classList.toggle("hide");
+  // section.classList.toggle("edit-view");
 }
